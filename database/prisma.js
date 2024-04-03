@@ -25,6 +25,32 @@ const createUser  = async (user) => {
 
 
 
+// Properties  requests handlers
+const createProperty = async (property) => {
+    try {
+        await prisma.property.create({
+            data : {
+                ...property,
+                owner : {
+                    connect : {
+                        email : property.owner
+                    }
+                },
+                address : {
+                    create : {
+                        ...property.address
+                    }
+                }
+            }
+        })
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false; 
+    }
+}
+
+
 module.exports = {
-    createUser
+    createUser, createProperty
 };
