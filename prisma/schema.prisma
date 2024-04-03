@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User{
+  id Int @id @unique @default(autoincrement())
+  firstname String
+  middlename String?
+  lastname String
+  email String @unique
+  password String
+  phone String? 
+  gender Gender
+  role Role @default(Public)
+}
+
+model Property{
+  id String @id @default(uuid())
+  size Int 
+  salePrice Int?
+  rentPrice Int?
+  type PropertyType 
+  tag Tag
+}
+
+
+model Address{
+  id Int  @id @default(autoincrement())
+  street String
+  number Int
+  neighborhood  String
+  commune  String
+  city  City?
+}
+
+
+enum Gender{
+  Masculine
+  Feminine
+}
+
+enum Role{
+  Public
+  Admin
+}
+
+enum PropertyType{
+  Apartment
+  House
+  Field
+}
+
+enum  Tag{
+  onSale
+  forRent
+  sold
+  rent
+}
+
+enum City{
+  Kinshasa
+  Lubumbashi
+}
