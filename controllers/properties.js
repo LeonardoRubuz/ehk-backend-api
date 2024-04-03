@@ -1,7 +1,8 @@
-const { createProperty } = require("../database/prisma");
+const { createProperty, retrieveProperties } = require("../database/prisma");
 
-const getProperties = (req, res) => {
-    res.status(200).send("All properties")
+const getProperties = async (req, res) => {
+    const properties = await retrieveProperties()
+    res.status(200).json(properties)
 }
 
 const addProperty = async (req, res) => {

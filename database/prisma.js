@@ -85,7 +85,20 @@ const createProperty = async (property) => {
 }
 
 
+/**
+ * 
+ * @returns All stored properties
+ */
+const retrieveProperties = async () => {
+    try {
+        const properties = await prisma.property.findMany()
+        return properties
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     createUser, createProperty,
-    retrieveUsers
+    retrieveUsers, retrieveProperties
 };
