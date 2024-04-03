@@ -5,7 +5,6 @@ const router = express.Router()
 
 router.route("/")
 .get(getAddresses)
-.post()
 
 
 module.exports = router;

@@ -6,7 +6,11 @@ const prisma = new PrismaClient
 
 
 // User requests handlers
-
+/**
+ * Create a new user record by hashing the given user.password property
+ * @param user The user object retrieved in as the req.body
+ * @returns  A boolean to confirms whether or not the database query went well
+ */
 const createUser  = async (user) => {
     try {
         const hashedPassword = bcrypt.hashSync(user.password, 15)
@@ -25,7 +29,13 @@ const createUser  = async (user) => {
 
 
 
+
 // Properties  requests handlers
+/**
+ * Create a new property whether its an Apartment, House
+ * or empty Field
+ * @param property -- The property object retrieved in as the req.body
+ */
 const createProperty = async (property) => {
     try {
         await prisma.property.create({
