@@ -21,7 +21,8 @@ model User{
   lastname String
   email String @unique
   password String
-  phone String? 
+  phone String?
+  properties Property[] 
   gender Gender
   role Role @default(Public)
 }
@@ -31,6 +32,9 @@ model Property{
   size Int 
   salePrice Int?
   rentPrice Int?
+  owner User @relation(references: [id], fields: [userId])
+  userId Int
+  address Address?
   type PropertyType 
   tag Tag
 }
@@ -43,6 +47,8 @@ model Address{
   neighborhood  String
   commune  String
   city  City?
+  property Property @relation(fields: [propertyId], references: [id])
+  propertyId String @unique
 }
 
 
