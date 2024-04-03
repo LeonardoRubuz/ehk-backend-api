@@ -1,7 +1,9 @@
-const { createUser } = require("../database/prisma");
+const { createUser, retrieveUsers } = require("../database/prisma");
 
-const getUsers = (req, res) => {
-    res.status(200).send('All users');
+const getUsers = async (req, res) => {
+    const users = await retrieveUsers()
+    console.log(users);
+    res.status(200).json(users);
 }
 
 const addUser = (req, res) => {

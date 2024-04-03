@@ -27,7 +27,31 @@ const createUser  = async (user) => {
     }
 }
 
-
+/**
+ * Returns a list of all users by the given role 
+ * @param {*} role If no role is provided, returns all users
+ * @returns 
+ */
+const retrieveUsers = async (role) => {
+    try {
+        if (role && role==="Public") {
+            const users = await prisma.user.findMany({
+                select : {role : role}
+            });
+            return users;
+        } 
+        if (role && role==="Admin") {
+            const users = await prisma.user.findMany({
+                select : {role : role}
+            });
+            return users;
+        }
+        const users = await prisma.user.findMany()
+        return users
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 // Properties  requests handlers
@@ -62,5 +86,6 @@ const createProperty = async (property) => {
 
 
 module.exports = {
-    createUser, createProperty
+    createUser, createProperty,
+    retrieveUsers
 };
