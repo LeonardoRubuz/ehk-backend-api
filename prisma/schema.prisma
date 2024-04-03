@@ -34,7 +34,8 @@ model Property{
   rentPrice Int?
   owner User @relation(references: [id], fields: [userId])
   userId Int
-  address Address?
+  address Address @relation(fields: [addressId], references: [id])
+  addressId Int @unique
   type PropertyType 
   tag Tag
 }
@@ -47,8 +48,7 @@ model Address{
   neighborhood  String
   commune  String
   city  City?
-  property Property @relation(fields: [propertyId], references: [id])
-  propertyId String @unique
+  property Property?
 }
 
 
