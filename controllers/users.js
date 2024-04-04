@@ -1,4 +1,4 @@
-const { createUser, retrieveUsers, retrieveUser } = require("../database/prisma");
+const { createUser, retrieveUsers, retrieveUser, changeUser, removeUser } = require("../database/prisma");
 
 const getUsers = async (req, res) => {
     const users = await retrieveUsers()
@@ -24,8 +24,25 @@ const getUser = async (req, res) => {
 }
 
 
+const updateUser = async (req, res) => {
+    if (await changeUser(req.params.id, req.body) === false) {
+        res.status(500).send('Server Error')
+    }else {
+       res.status(200).send('Updated Successfully'); 
+    }
+}
+
+const deleteUser = async (req, res) => {
+    if (!await removeUser(req.params.id)) {
+        res.status(500).send('Error deleting the user');
+    }
+    res.status(200).send('User deleted successfully')
+}
+
 module.exports = {
     getUsers,
     addUser,
-    getUser
+    getUser,
+    updateUser,
+    deleteUser
 };

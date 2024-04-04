@@ -75,6 +75,48 @@ const retrieveUser = async (id) => {
     }
 }
 
+/**
+ * Update one or many values of a stored user record
+ * @param {*} id 
+ * @param {*} user 
+ * @returns boolean
+ */
+const changeUser = async (id, user) => {
+    try {
+        await prisma.user.update({
+            where : {
+                id : parseInt(id)
+            },
+            data : {
+                ...user
+            }
+        })
+        return true
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
+
+/**
+ * Delete a user record
+ * @param {*} id 
+ * @returns 
+ */
+const removeUser = async (id) => {
+    try {
+        await prisma.user.delete({
+            where : {
+                id : parseInt(id)
+            }
+        })
+        return true
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
+
 
 // Properties  requests handlers
 /**
@@ -175,7 +217,9 @@ const removeProperty = async (id) => {
 
 
 // Addresses requests handlers
-
+/**
+ * Get all stored addresses
+ */
 const retrieveAddresses = async () => {
     try {
         const addresses =  await prisma.address.findMany()
@@ -191,5 +235,5 @@ const retrieveAddresses = async () => {
 module.exports = {
     createUser, createProperty, retrieveUser,
     retrieveUsers, retrieveProperties, retrieveAddresses,
-    changeProperty, removeProperty
+    changeProperty, removeProperty, changeUser, removeUser
 };
