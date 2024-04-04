@@ -130,9 +130,27 @@ const changeProperty = async (id, property) => {
     }
 }
 
+/**
+ * Delete a property
+ * @param {*} id 
+ * @returns A boolean
+ */
+const removeProperty = async (id) => {
+    try {
+        await prisma.property.delete({
+            where : {
+                id : id
+            }
+        })
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
 
 module.exports = {
     createUser, createProperty,
     retrieveUsers, retrieveProperties,
-    changeProperty
+    changeProperty, removeProperty
 };

@@ -1,4 +1,4 @@
-const { createProperty, retrieveProperties, changeProperty } = require("../database/prisma");
+const { createProperty, retrieveProperties, changeProperty, removeProperty } = require("../database/prisma");
 
 const getProperties = async (req, res) => {
     const properties = await retrieveProperties()
@@ -25,10 +25,18 @@ const updateProperty = async (req, res) => {
     res.status(200).send("The property has been updated")
 }
 
+const deleteProperty = async (req, res) => {
+    if (!await removeProperty(req.params.id)) {
+        res.status(500).send('Cannot delete the property')
+    }
+    res.status(200).send('The property has been deleted')
+}
+
 
 module.exports = {
     getProperties,
     addProperty,
     getProperty,
-    updateProperty
+    updateProperty,
+    deleteProperty
 };
