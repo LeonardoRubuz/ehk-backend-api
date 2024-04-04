@@ -53,7 +53,11 @@ const retrieveUsers = async (role) => {
     }
 }
 
-
+/**
+ * Get a particular user
+ * @param {*} id the  id of the user we want to get information about
+ * @returns User object 
+ */
 const retrieveUser = async (id) => {
     try {
         const user = await prisma.user.findUnique({
