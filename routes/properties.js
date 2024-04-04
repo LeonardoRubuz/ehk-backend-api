@@ -1,5 +1,5 @@
 const express = require('express');
-const { getProperties, addProperty, getProperty } = require('../controllers/properties');
+const { getProperties, addProperty, getProperty, updateProperty } = require('../controllers/properties');
 const router = express.Router()
 
 
@@ -9,7 +9,7 @@ router.route("/")
 
 router.route("/:id")
 .get(getProperty)
-.put()
+.put(updateProperty)
 .delete()
 
 module.exports = router;

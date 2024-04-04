@@ -1,8 +1,8 @@
-const { PrismaClient } = require('@prisma/client')
-const bcrypt = require('bcrypt')
+const { PrismaClient } = require('@prisma/client');
+const bcrypt = require('bcrypt');
 
 
-const prisma = new PrismaClient
+const prisma = new PrismaClient;
 
 
 // User requests handlers
@@ -106,7 +106,28 @@ const retrieveProperties = async (id) => {
     }
 }
 
+
+const changeProperty = async (id, property) => {
+    try {
+        await prisma.property.update({
+            where : {
+                id : id
+            },
+            data : {
+                ...property
+
+            }
+        })
+        return true
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
+
+
 module.exports = {
     createUser, createProperty,
-    retrieveUsers, retrieveProperties
+    retrieveUsers, retrieveProperties,
+    changeProperty
 };

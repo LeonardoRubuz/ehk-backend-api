@@ -1,4 +1,4 @@
-const { createProperty, retrieveProperties } = require("../database/prisma");
+const { createProperty, retrieveProperties, changeProperty } = require("../database/prisma");
 
 const getProperties = async (req, res) => {
     const properties = await retrieveProperties()
@@ -18,8 +18,17 @@ const getProperty = async (req, res) => {
     res.status(200).json(property)
 }
 
+const updateProperty = async (req, res) => {
+    if (!await changeProperty(req.params.id, req.body)) {
+        res.status(500).send("Cannot update the property")
+    }
+    res.status(200).send("The property has been updated")
+}
+
+
 module.exports = {
     getProperties,
     addProperty,
-    getProperty
+    getProperty,
+    updateProperty
 };
