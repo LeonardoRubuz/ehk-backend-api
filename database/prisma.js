@@ -149,8 +149,25 @@ const removeProperty = async (id) => {
     }
 }
 
+
+
+
+// Addresses requests handlers
+
+const retrieveAddresses = async () => {
+    try {
+        const addresses =  await prisma.address.findMany()
+        return addresses
+    } catch (error) {
+        console.log(error);
+        return null
+    }
+}
+
+
+
 module.exports = {
     createUser, createProperty,
-    retrieveUsers, retrieveProperties,
+    retrieveUsers, retrieveProperties, retrieveAddresses,
     changeProperty, removeProperty
 };
