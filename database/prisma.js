@@ -106,7 +106,12 @@ const retrieveProperties = async (id) => {
     }
 }
 
-
+/**
+ * Change attributes of a property record
+ * @param {*} id The identifier of the property to change
+ * @param {*} property The object of changed values
+ * @returns A boolean
+ */
 const changeProperty = async (id, property) => {
     try {
         await prisma.property.update({
