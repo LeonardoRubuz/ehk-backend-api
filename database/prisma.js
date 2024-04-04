@@ -54,6 +54,24 @@ const retrieveUsers = async (role) => {
 }
 
 
+const retrieveUser = async (id) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where : {
+                id : parseInt(id)
+            }
+        })
+        if (!user) {
+            return null
+        }
+        return user
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
+
+
 // Properties  requests handlers
 /**
  * Create a new property whether its an Apartment, House
@@ -167,7 +185,7 @@ const retrieveAddresses = async () => {
 
 
 module.exports = {
-    createUser, createProperty,
+    createUser, createProperty, retrieveUser,
     retrieveUsers, retrieveProperties, retrieveAddresses,
     changeProperty, removeProperty
 };
