@@ -13,8 +13,13 @@ const addProperty = async (req, res) => {
     }
 }
 
+const getProperty = async (req, res) => {
+    const property = await retrieveProperties(req.params.id);
+    res.status(200).json(property)
+}
 
 module.exports = {
     getProperties,
-    addProperty
+    addProperty,
+    getProperty
 };

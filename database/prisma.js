@@ -86,11 +86,19 @@ const createProperty = async (property) => {
 
 
 /**
- * 
- * @returns All stored properties
+ * Returns  all properties 
+ * @param id  - if provided returns only one property otherwise it will return all the properties
  */
-const retrieveProperties = async () => {
+const retrieveProperties = async (id) => {
     try {
+        if (id) {
+            const property = await prisma.property.findUnique({
+                where : {
+                    id : id
+                }
+            });
+            return property
+        }
         const properties = await prisma.property.findMany()
         return properties
     } catch (error) {
