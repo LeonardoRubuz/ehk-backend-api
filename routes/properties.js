@@ -4,7 +4,7 @@ const router = express.Router()
 
 
 router.route("/")
-.get(getProperties)
+.get(getProperties) // Reserved to Admin profiles 
 .post(addProperty)
 
 router.route("/:id")

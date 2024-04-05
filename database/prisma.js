@@ -170,6 +170,11 @@ const retrieveProperties = async (id) => {
     }
 }
 
+/**
+ * Looks up for properties owned by the given email
+ * @param {*} ownerEmail 
+ * @returns List of filtered properties
+ */
 const retrieveManyProperties = async (ownerEmail) => {
     try {
         const properties = await prisma.property.findMany({
