@@ -170,6 +170,21 @@ const retrieveProperties = async (id) => {
     }
 }
 
+const retrieveManyProperties = async (ownerEmail) => {
+    try {
+        const properties = await prisma.property.findMany({
+            where : {
+                owner :  ownerEmail
+            }
+        })
+        return properties
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
+
+
 /**
  * Change attributes of a property record
  * @param {*} id The identifier of the property to change
@@ -235,5 +250,6 @@ const retrieveAddresses = async () => {
 module.exports = {
     createUser, createProperty, retrieveUser,
     retrieveUsers, retrieveProperties, retrieveAddresses,
-    changeProperty, removeProperty, changeUser, removeUser
+    changeProperty, removeProperty, changeUser, removeUser,
+    retrieveManyProperties
 };

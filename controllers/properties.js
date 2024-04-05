@@ -1,8 +1,16 @@
-const { createProperty, retrieveProperties, changeProperty, removeProperty } = require("../database/prisma");
+const { createProperty, retrieveProperties, changeProperty, removeProperty, retrieveManyProperties } = require("../database/prisma");
 
 const getProperties = async (req, res) => {
     const properties = await retrieveProperties()
     res.status(200).json(properties)
+}
+
+const selectPropertiesByEmail = async (req, res) => {
+    const filteredProperties = await retrieveManyProperties(req.params.id)
+    if (filteredProperties === false) {
+        res.status(500).send('An error occured while fetching the datas')
+    }
+    res.status(200).json(filteredProperties)
 }
 
 const addProperty = async (req, res) => {
@@ -38,5 +46,6 @@ module.exports = {
     addProperty,
     getProperty,
     updateProperty,
-    deleteProperty
+    deleteProperty,
+    selectPropertiesByEmail
 };
