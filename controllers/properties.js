@@ -6,7 +6,7 @@ const getProperties = async (req, res) => {
 }
 
 const selectPropertiesByEmail = async (req, res) => {
-    const filteredProperties = await retrieveManyProperties(req.params.id)
+    const filteredProperties = await retrieveManyProperties(req.params.email)
     if (filteredProperties === false) {
         res.status(500).send('An error occured while fetching the datas')
     }

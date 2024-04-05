@@ -179,7 +179,7 @@ const retrieveManyProperties = async (ownerEmail) => {
     try {
         const properties = await prisma.property.findMany({
             where : {
-                owner :  ownerEmail
+                userEmail :  ownerEmail
             }
         })
         return properties
@@ -250,11 +250,25 @@ const retrieveAddresses = async () => {
     }
 }
 
-
+const retrieveManyAddresses = async (ownerEmail) => {
+    try {
+        const addresses = await prisma.address.findMany({
+           select : {
+            property : {
+                userEmail : ownerEmail
+            }
+           }
+        })
+        return addresses
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
 
 module.exports = {
     createUser, createProperty, retrieveUser,
     retrieveUsers, retrieveProperties, retrieveAddresses,
     changeProperty, removeProperty, changeUser, removeUser,
-    retrieveManyProperties
+    retrieveManyProperties, retrieveManyAddresses
 };

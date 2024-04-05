@@ -8,7 +8,15 @@ const getAddresses = async (req, res) => {
     res.status(200).json(addresses)
 }
 
+const selectAddressesByEmail = async (req, res) => {
+    const filteredAddresses = await retrieveAddresses(req.params.email);
+    if (filteredAddresses === false) {
+        res.status(500).send("An error occured while fetching the addresses");
+    }
+    res.status(200).json(filteredAddresses);
+}
 
 module.exports = {
-    getAddresses
+    getAddresses,
+    selectAddressesByEmail
 };

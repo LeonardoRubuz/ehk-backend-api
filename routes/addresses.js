@@ -1,12 +1,13 @@
 const express = require('express');
-const { getAddresses } = require('../controllers/addresses');
+const { getAddresses, selectAddressesByEmail } = require('../controllers/addresses');
 const router = express.Router()
 
 
 router.route("/")
 .get(getAddresses)
 
-router.route("/:id")
+router.route("/filter/:email")
+.get(selectAddressesByEmail)
 
 
 
