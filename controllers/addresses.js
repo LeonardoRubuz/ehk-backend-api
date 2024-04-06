@@ -1,4 +1,4 @@
-const { retrieveAddresses } = require("../database/prisma");
+const { retrieveAddresses, retrieveManyAddresses } = require("../database/prisma");
 
 const getAddresses = async (req, res) => {
     const addresses = await retrieveAddresses()
@@ -9,7 +9,7 @@ const getAddresses = async (req, res) => {
 }
 
 const selectAddressesByEmail = async (req, res) => {
-    const filteredAddresses = await retrieveAddresses(req.params.email);
+    const filteredAddresses = await retrieveManyAddresses(req.params.email);
     if (filteredAddresses === false) {
         res.status(500).send("An error occured while fetching the addresses");
     }

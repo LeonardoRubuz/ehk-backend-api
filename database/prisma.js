@@ -253,11 +253,11 @@ const retrieveAddresses = async () => {
 const retrieveManyAddresses = async (ownerEmail) => {
     try {
         const addresses = await prisma.address.findMany({
-           select : {
-            property : {
-                userEmail : ownerEmail
+            where : {
+                property : {    
+                    userEmail : ownerEmail
+                }
             }
-           }
         })
         return addresses
     } catch (error) {
