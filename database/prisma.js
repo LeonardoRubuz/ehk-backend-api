@@ -75,6 +75,23 @@ const retrieveUser = async (id) => {
     }
 }
 
+const retrieveUserByEmail = async (email) => {
+    try {
+        const user = await prisma.user.findUnique({
+            where : {
+                email : email
+            }
+        })
+        if (!user) {
+            return null
+        }
+        return user
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
+
 /**
  * Update one or many values of a stored user record
  * @param {*} id 
@@ -317,5 +334,5 @@ module.exports = {
     retrieveUsers, retrieveProperties, retrieveAddresses,
     changeProperty, removeProperty, changeUser, removeUser,
     retrieveManyProperties, retrieveManyAddresses,
-    changeAddress
+    changeAddress, retrieveUserByEmail
 };
