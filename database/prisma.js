@@ -250,6 +250,11 @@ const retrieveAddresses = async () => {
     }
 }
 
+/**
+ * Looks up for addresses owned by the given email
+ * @param {*} ownerEmail 
+ * @returns List of filtered addresses
+ */
 const retrieveManyAddresses = async (ownerEmail) => {
     try {
         const addresses = await prisma.address.findMany({
@@ -266,9 +271,51 @@ const retrieveManyAddresses = async (ownerEmail) => {
     }
 }
 
+/**
+ * Update an address record values
+ * @param {*} addressId 
+ * @returns Boolean
+ */
+const changeAddress = async (addressId, newValues) => {
+    try {
+        await prisma.address.update({
+            where : {
+                id : parseInt(addressId)
+            },
+            data : {
+                ...newValues
+            }
+        })
+        return true
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
+
+/**
+ * Deletes an address record
+ * @param {*} addressId 
+ * @returns 
+ */
+/* const removeAddress = async (addressId) => {
+    try {
+        await prisma.address.delete({
+            where : {
+                id : parseInt(addressId)
+            }
+        })
+        return true
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+} */
+
 module.exports = {
     createUser, createProperty, retrieveUser,
     retrieveUsers, retrieveProperties, retrieveAddresses,
     changeProperty, removeProperty, changeUser, removeUser,
-    retrieveManyProperties, retrieveManyAddresses
+    retrieveManyProperties, retrieveManyAddresses,
+    changeAddress
 };
