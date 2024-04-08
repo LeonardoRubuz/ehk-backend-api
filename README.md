@@ -27,7 +27,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `GET /users/`
 
-    URL :  http://localhost:3001/users/
+    URL :  https://ehk-backend-api.onrender.com/users/
     Body :  None
 
 ### Réponse
@@ -65,7 +65,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `POST /users/`
 
-    URL :  http://localhost:3001/users
+    URL :  https://ehk-backend-api.onrender.com/users
     Body : {
               "firstname" : "John",
               "lastname" : "Doe",
@@ -86,7 +86,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `GET /users/id`
 
-    URL : http://localhost:3001/users/1
+    URL : https://ehk-backend-api.onrender.com/users/1
 
 ### Réponse
 
@@ -109,7 +109,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `GET /users/id`
 
-    URL : http://localhost:3001/users/9999
+    URL : https://ehk-backend-api.onrender.com/users/9999
 
 ### Réponse
 
@@ -122,7 +122,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `PUT /users/id`
 
-    URL : http://localhost:3001/users/1
+    URL : https://ehk-backend-api.onrender.com/users/1
     Body : {
             "email" : "changedmail@email.com"
         }
@@ -137,7 +137,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `DELETE /users/id`
 
-    URL : http://localhost:3001/users/1
+    URL : https://ehk-backend-api.onrender.com/users/1
 
 ### Réponse
 
@@ -152,7 +152,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `GET /properties/`
 
-    URL : http://localhost:3001/properties/
+    URL : https://ehk-backend-api.onrender.com/properties/
 
 ### Réponse
 
@@ -197,7 +197,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `GET /properties/filter/email`
 
-    URL : http://localhost:3001/properties/rubuzleonardo@gmail.com
+    URL : https://ehk-backend-api.onrender.com/properties/rubuzleonardo@gmail.com
 
 ### Réponse
 
@@ -231,7 +231,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `POST /properties`
 
-    URL : http://localhost:3001/properties
+    URL : https://ehk-backend-api.onrender.com/properties
     Body : {
               "size" : 700,
               "salePrice" : 90,
@@ -258,7 +258,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `GET /properties/id`
 
-    URL : http://localhost:3001/properties/e20a4c13-3694-4f5c-91a1-2e7389541bc4
+    URL : https://ehk-backend-api.onrender.com/properties/e20a4c13-3694-4f5c-91a1-2e7389541bc4
 
 ### Réponse
 
@@ -280,7 +280,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `GET /properties/id`
 
-    URL : http://localhost:3001/properties/e20a4c13-3694
+    URL : https://ehk-backend-api.onrender.com/properties/e20a4c13-3694
 
 ### Réponse
 
@@ -293,7 +293,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `PUT /properties/id`
 
-    URL : http://localhost:3001/properties/e20a4c13-3694-4f5c-91a1-2e7389541bc4
+    URL : https://ehk-backend-api.onrender.com/properties/e20a4c13-3694-4f5c-91a1-2e7389541bc4
     Body : {
               "salePrice" : 400,
               "tag" : "onSale"
@@ -310,7 +310,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `DELETE /properties/id`
 
-    URL : http://localhost:3001/properties/4c154aff-8e89-4130-be92-e497d4571c64
+    URL : https://ehk-backend-api.onrender.com/properties/4c154aff-8e89-4130-be92-e497d4571c64
 
 ### Réponse
 
@@ -326,7 +326,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `GET /addresses/`
 
-    URL : http://localhost:3001/addresses/
+    URL : https://ehk-backend-api.onrender.com/addresses/
 
 ### Réponse
 
@@ -357,7 +357,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `GET /addresses/filter/email`
 
-    URL : http://localhost:3001/addresses/rubuzleonardo@gmail.com
+    URL : https://ehk-backend-api.onrender.com/addresses/rubuzleonardo@gmail.com
 
 ### Réponse
 
@@ -387,7 +387,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 `PUT /addresses/id`
 
-    URL : http://localhost:3001/addresses/3
+    URL : https://ehk-backend-api.onrender.com/addresses/3
     Body : {
               "street" : "King's way",
               "number" : 9
