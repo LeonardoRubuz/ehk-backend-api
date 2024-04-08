@@ -77,7 +77,7 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
 ### Réponse
 
-    Status : 201 OK
+    Status : 201 Created
     Body : "User created successfully"
 
 ## Récupérer un utilisateur
@@ -144,223 +144,256 @@ Ceci est la documentation minimale pour l'utilisation de l'API REST de .
     Status : 200 OK
     Body : "Deleted successfully"
 
-## Get list of Things again
+
+## Propriétés
+## Récupérer la liste de toutes  les propriétés
 
 ### Requête
 
-`GET /thing/`
+`GET /properties/`
 
-    URL : http://localhost:3001/thing/
+    URL : http://localhost:3001/properties/
 
 ### Réponse
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
+    Status : 200 OK
+    Body: [
+          {
+            "id": "e20a4c13-3694-4f5c-91a1-2e7389541bc4",
+            "size": 90,
+            "salePrice": 400,
+            "rentPrice": 100,
+            "userEmail": "rubuzleonardo@gmail.com",
+            "addressId": 1,
+            "type": "Apartment",
+            "tag": "onSale"
+          },
+          {
+            "id": "6d726d4a-57dc-44fc-96ba-b4c9710a2a31",
+            "size": 70,
+            "salePrice": 90,
+            "rentPrice": null,
+            "userEmail": "rubuzleonardo@gmail.com",
+            "addressId": 3,
+            "type": "Apartment",
+            "tag": "onSale"
+          },
+          {
+            "id": "58b94b51-d4ad-44d4-9895-5797f05fb615",
+            "size": 700,
+            "salePrice": 90,
+            "rentPrice": null,
+            "userEmail": "nikki-chan@gmail.com",
+            "addressId": 4,
+            "type": "Apartment",
+            "tag": "onSale"
+          }
+        ]
+
+
+## Récupérer la liste de propriétés selon un utilisateur
+
+### Requête
+
+`GET /properties/filter/email`
+
+    URL : http://localhost:3001/properties/rubuzleonardo@gmail.com
+
+### Réponse
+
+    Status : 200 OK
+    Body: [
+              {
+                "id": "e20a4c13-3694-4f5c-91a1-2e7389541bc4",
+                "size": 90,
+                "salePrice": 400,
+                "rentPrice": 100,
+                "userEmail": "rubuzleonardo@gmail.com",
+                "addressId": 1,
+                "type": "Apartment",
+                "tag": "onSale"
+              },
+              {
+                "id": "6d726d4a-57dc-44fc-96ba-b4c9710a2a31",
+                "size": 70,
+                "salePrice": 90,
+                "rentPrice": null,
+                "userEmail": "rubuzleonardo@gmail.com",
+                "addressId": 3,
+                "type": "Apartment",
+                "tag": "onSale"
+              }
+            ]
+
+## Créer une propriété
+
+### Requête
+
+`POST /properties`
+
+    URL : http://localhost:3001/properties
+    Body : {
+              "size" : 700,
+              "salePrice" : 90,
+              "owner" : "nikki-chan@gmail.com",
+              "type" : "Apartment",
+              "tag" : "onSale",
+              "address" : {
+                "street" : "Poudlard",
+                "number" : 1,
+                "neighborhood" : "Quartier 1",
+                "commune" : "N'djili",
+                "city" : "Kinshasa"
+              }
+        }
+
+### Réponse
+
+    Status : 201 Created
+    Body : "Property successfully created"
+
+## Récupérer une propriété par son identifiant
+
+### Requête
+
+`GET /properties/id`
+
+    URL : http://localhost:3001/properties/e20a4c13-3694-4f5c-91a1-2e7389541bc4
+
+### Réponse
+
+    Status : 200 OK
+    Body : {
+          "id": "e20a4c13-3694-4f5c-91a1-2e7389541bc4",
+          "size": 90,
+          "salePrice": 400,
+          "rentPrice": 100,
+          "userEmail": "rubuzleonardo@gmail.com",
+          "addressId": 1,
+          "type": "Apartment",
+          "tag": "onSale"
+        }
+
+## Récupérer une propriété inexistante
+
+### Requête
+
+`GET /properties/id`
+
+    URL : http://localhost:3001/properties/e20a4c13-3694
+
+### Réponse
+
+    Status : 404 Not Found
+    Body : "No property found"
+
+## Modifier une propriété
+
+### Requête
+
+`PUT /properties/id`
+
+    URL : http://localhost:3001/properties/e20a4c13-3694-4f5c-91a1-2e7389541bc4
+    Body : {
+              "salePrice" : 400,
+              "tag" : "onSale"
+            }
+
+### Réponse
+
+    Status : 200 OK
+    Body : "The property has been updated"
+
+## Supprimer une propriété
+
+### Requête
+
+`DELETE /properties/id`
+
+    URL : http://localhost:3001/properties/4c154aff-8e89-4130-be92-e497d4571c64
+
+### Réponse
+
     Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 74
+    Body : "The property has been deleted"
 
-    [{"id":1,"name":"Foo","status":"new"},{"id":2,"name":"Bar","status":null}]
 
-## Change a Thing's state
 
-### Requête
-
-`PUT /thing/:id/status/changed`
-
-    URL : -X PUT http://localhost:3001/thing/1/status/changed
-
-### Réponse
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
-
-    {"id":1,"name":"Foo","status":"changed"}
-
-## Get changed Thing
+## Adresses
+## Récupérer la liste de toutes  les adresses
 
 ### Requête
 
-`GET /thing/id`
+`GET /addresses/`
 
-    URL : http://localhost:3001/thing/1
+    URL : http://localhost:3001/addresses/
 
 ### Réponse
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
+    Status : 200 OK
+    Body: [
+              {
+                "id": 1,
+                "street": "Colonel Mpia",
+                "number": 9,
+                "neighborhood": "Joli Parc",
+                "commune": "Ngaliema",
+                "city": "Kinshasa"
+              },
+              {
+                "id": 2,
+                "street": "Nzilo",
+                "number": 26,
+                "neighborhood": "CPA",
+                "commune": "Mont-Ngafula",
+                "city": "Kinshasa"
+              }
+        ]
 
-    {"id":1,"name":"Foo","status":"changed"}
 
-## Change a Thing
+## Récupérer la liste d'adresses selon un utilisateur
 
 ### Requête
 
-`PUT /thing/:id`
+`GET /addresses/filter/email`
 
-    URL : -X PUT -d 'name=Foo&status=changed2' http://localhost:3001/thing/1
+    URL : http://localhost:3001/addresses/rubuzleonardo@gmail.com
 
 ### Réponse
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
+    Status : 200 OK
+    Body: [
+              {
+                "id": 1,
+                "street": "Colonel Mpia",
+                "number": 9,
+                "neighborhood": "Joli Parc",
+                "commune": "Ngaliema",
+                "city": "Kinshasa"
+              },
+              {
+                "id": 3,
+                "street": "Bosango",
+                "number": 10,
+                "neighborhood": "Kingabwa",
+                "commune": "Limete",
+                "city": "Kinshasa"
+              }
+            ]
 
-    {"id":1,"name":"Foo","status":"changed2"}
-
-## Attempt to change a Thing using partial params
+## Modifier une adresses
 
 ### Requête
 
-`PUT /thing/:id`
+`PUT /addresses/id`
 
-    URL : -X PUT -d 'status=changed3' http://localhost:3001/thing/1
-
-### Réponse
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed3"}
-
-## Attempt to change a Thing using invalid params
-
-### Requête
-
-`PUT /thing/:id`
-
-    URL : -X PUT -d 'id=99&status=changed4' http://localhost:3001/thing/1
+    URL : http://localhost:3001/addresses/3
+    Body : {
+              "street" : "King's way",
+              "number" : 9
+            }
 
 ### Réponse
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed4"}
-
-## Change a Thing using the _method hack
-
-### Requête
-
-`POST /thing/:id?_method=POST`
-
-    URL : -X POST -d 'name=Baz&_method=PUT' http://localhost:3001/thing/1
-
-### Réponse
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Baz","status":"changed4"}
-
-## Change a Thing using the _method hack in the url
-
-### Requête
-
-`POST /thing/:id?_method=POST`
-
-    URL : -X POST -d 'name=Qux' http://localhost:3001/thing/1?_method=PUT
-
-### Réponse
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: text/html;charset=utf-8
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing
-
-### Requête
-
-`DELETE /thing/id`
-
-    URL : -X DELETE http://localhost:3001/thing/1/
-
-### Réponse
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 204 No Content
-    Connection: close
-
-
-## Try to delete same Thing again
-
-### Requête
-
-`DELETE /thing/id`
-
-    URL : -X DELETE http://localhost:3001/thing/1/
-
-### Réponse
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Get deleted Thing
-
-### Requête
-
-`GET /thing/1`
-
-    URL : http://localhost:3001/thing/1
-
-### Réponse
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing using the _method hack
-
-### Requête
-
-`DELETE /thing/id`
-
-    URL : -X POST -d'_method=DELETE' http://localhost:3001/thing/2/
-
-### Réponse
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 204 No Content
-    Connection: close
+    Status : 200 OK
+    Body : "Address updated"
