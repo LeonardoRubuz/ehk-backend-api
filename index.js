@@ -1,5 +1,6 @@
 const express =  require('express');
 const server = express();
+const cors = require('cors')
 const dotenv = require('dotenv');
 const passport = require('passport');
 const addressRouter = require('./routes/addresses')
@@ -9,7 +10,8 @@ const userRouter = require('./routes/users')
 dotenv.config()
 const port = process.env.PORT ||  5000;
 
-// Middlewares 
+// Middlewares
+server.use(cors()) 
 server.use(express.json()); // Parse incoming requests data as JSON
 //server.use(passport.initialize()) //  Pass the authentication middleware to our application
 
