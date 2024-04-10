@@ -2,11 +2,34 @@
 
 Ceci est la documentation minimale pour l'utilisation de l'API REST de .
 
+# Technologies 
+  - Node.js  
+  - PostgreSQL
 
+## Prérequis
+  - La plus récente version de [NodeJS](https://nodejs.org/en/)
+  - La plus récente version de  [PostgresSQL](https://www.postgresql.org/download/). (En considérant la version 15 comme minimale)
 
 ## Installation
 
     npm install
+
+## Variables d'environnements
+- Renommer le fichier `.env.example` en `.env`.
+- Modifier la valeur de la variable `DATABASE_URL` par  votre URI Postgres. Par exemple : `"postgresql://user:password@localhost:5432/databaseName?schema=public"`
+
+## Schéma de base de données
+- Générer la migration du schema
+    
+    ```
+        npx prisma generate
+    ``` 
+
+- Synchroniser le schema avec les tables de la base de données
+    
+    ```
+        npx prisma db push
+    ```
 
 ## Lancement de l'application
 
