@@ -9,7 +9,7 @@ const authMiddleware = (req, res, next) => {
         if (!user) {
             return res.status(401).json({error : "Incorrect ids"})
         }
-        const token = generateToken(user);
+        generateToken(user);
         res.status(200)
     })(req, res, next)
 }
