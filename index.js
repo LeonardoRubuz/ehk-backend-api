@@ -17,7 +17,7 @@ server.use(express.json()); // Parse incoming requests data as JSON
 
 
 server.get("/", (req, res) => {
-    res.send("EHK Mobile API")
+    res.send("EHK Mobile API for mobile applications")
 })
 
 // Routers
