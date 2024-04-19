@@ -9,6 +9,7 @@ const userRouter = require('./routes/users');
 const authRouter = require('./routes/auth');
 const { retrieveUserByEmail } = require('./database/prisma');
 const LocalStrategy = require('./lib/config/passport');
+const helmet = require('helmet');
 
 // Configurations
 dotenv.config()
@@ -32,6 +33,11 @@ passport.deserializeUser(async (email, done) => {
 server.use(cors()) 
 server.use(express.json()); // Parse incoming requests data as JSON
 server.use(passport.initialize()) //  Pass the authentication middleware to our application
+server.use(helmet(
+    {
+        xFrameOptions : {action : "deny"},
+    }
+)) 
 
 
 server.get("/", (req, res) => {
