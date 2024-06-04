@@ -25,6 +25,7 @@ model User{
   properties Property[] 
   gender Gender
   role Role @default(Public)
+  wishlist String[]
 }
 
 model Property{
@@ -38,6 +39,7 @@ model Property{
   addressId Int @unique
   type PropertyType 
   tag Tag
+  waitlist String[]  
 }
 
 
