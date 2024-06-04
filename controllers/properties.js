@@ -1,4 +1,4 @@
-const { createProperty, retrieveProperties, changeProperty, removeProperty, retrieveManyProperties } = require("../database/prisma");
+const { createProperty, retrieveProperties, changeProperty, removeProperty, retrieveManyProperties, setWishlist } = require("../database/prisma");
 
 const getProperties = async (req, res) => {
     const properties = await retrieveProperties()
@@ -33,6 +33,14 @@ const updateProperty = async (req, res) => {
     res.status(200).send("The property has been updated")
 }
 
+const makeWishlist = async (req, res) => {
+    if ( !await setWishlist(req.params.id, req.body)) {
+        res.status(500).send('Cannot set wishlist')
+    }
+    res.status(200).send('Wishlist updated')
+}
+
+
 const deleteProperty = async (req, res) => {
     if (!await removeProperty(req.params.id)) {
         res.status(500).send('Cannot delete the property')
@@ -47,5 +55,6 @@ module.exports = {
     getProperty,
     updateProperty,
     deleteProperty,
-    selectPropertiesByEmail
+    selectPropertiesByEmail,
+    makeWishlist
 };

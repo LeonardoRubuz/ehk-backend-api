@@ -232,6 +232,41 @@ const changeProperty = async (id, property) => {
 }
 
 /**
+ * Changes a state of a property's waitlist and adds the property's id
+ * into the user's wishlist
+ * @param {*} changes 
+ * @returns 
+ */
+const setWishlist = async (id, changes) => {
+    try {
+        await prisma.property.update({
+            where : {
+                id : id
+            },
+            data : {
+                waitlist : {
+                    push : changes.userEmail
+                }
+            }
+        })
+        await prisma.user.update({
+            where : {
+                email : changes.userEmail
+            },
+            data : {
+                wishlist : {
+                    push : id
+                }
+            }
+        })
+        return true
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
+
+/**
  * Delete a property
  * @param {*} id 
  * @returns A boolean
@@ -334,5 +369,6 @@ module.exports = {
     retrieveUsers, retrieveProperties, retrieveAddresses,
     changeProperty, removeProperty, changeUser, removeUser,
     retrieveManyProperties, retrieveManyAddresses,
-    changeAddress, retrieveUserByEmail
+    changeAddress, retrieveUserByEmail,
+    setWishlist
 };
