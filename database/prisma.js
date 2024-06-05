@@ -176,11 +176,28 @@ const retrieveProperties = async (id) => {
             const property = await prisma.property.findUnique({
                 where : {
                     id : id
+                },
+                include : {
+                    address : {
+                        select : {
+                            commune : true,
+                            city : true
+                        }
+                    }
                 }
             });
             return property
         }
-        const properties = await prisma.property.findMany()
+        const properties = await prisma.property.findMany({
+            include : {
+                address : {
+                    select : {
+                        commune : true,
+                        city : true
+                    }
+                }
+            }
+        })
         return properties
     } catch (error) {
         console.log(error);
