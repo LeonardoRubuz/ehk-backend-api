@@ -181,7 +181,10 @@ const retrieveProperties = async (id) => {
                     address : {
                         select : {
                             commune : true,
-                            city : true
+                            city : true,
+                            street : true,
+                            number : true,
+                            neighborhood : true
                         }
                     }
                 }
