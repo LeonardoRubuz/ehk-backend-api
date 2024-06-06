@@ -16,6 +16,7 @@ datasource db {
 
 model User{
   id Int @id @unique @default(autoincrement())
+  profile String?
   firstname String
   middlename String?
   lastname String
@@ -30,7 +31,8 @@ model User{
 
 model Property{
   id String @id @default(uuid())
-  size Int 
+  name String
+  size String 
   salePrice Int?
   rentPrice Int?
   owner User @relation(references: [email], fields: [userEmail])
@@ -39,7 +41,8 @@ model Property{
   addressId Int @unique
   type PropertyType 
   tag Tag
-  waitlist String[]  
+  waitlist String[]
+  images String[]  
 }
 
 
