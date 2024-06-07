@@ -32,7 +32,7 @@ model User{
 model Property{
   id String @id @default(uuid())
   name String
-  size String 
+  size Float 
   salePrice Int?
   rentPrice Int?
   owner User @relation(references: [email], fields: [userEmail])
