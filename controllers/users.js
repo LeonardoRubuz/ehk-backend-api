@@ -1,4 +1,19 @@
-const { createUser, retrieveUsers, retrieveUser, changeUser, removeUser } = require("../database/prisma");
+const { createUser, retrieveUsers, retrieveUser, changeUser, removeUser, retrieveUserByEmail } = require("../database/prisma");
+const generateToken = require("../lib/generateToken");
+
+
+const register = async (req, res) => {
+    if (!await createUser(req.body)) {
+        res.status(500).send("Internal server error")
+    }
+    const token = generateToken(req.body)
+    const user = await retrieveUserByEmail(req.body.email)
+    res.status(200).json({
+        "token" : token,
+        "user" : user
+    })
+}
+
 
 const getUsers = async (req, res) => {
     const users = await retrieveUsers()
@@ -44,5 +59,6 @@ module.exports = {
     addUser,
     getUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    register
 };
