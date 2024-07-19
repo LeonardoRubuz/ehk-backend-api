@@ -9,8 +9,12 @@ const authMiddleware = (req, res, next) => {
         if (!user) {
             return res.status(401).json({error : "Incorrect ids"})
         }
-        generateToken(user);
-        res.status(200).send('Connexion réussie')
+        const token = generateToken(user);
+        res.status(200).send({
+            "message" : "Connexion réussie",
+            "token" : token,
+            "user" : user
+        })
     })(req, res, next)
 }
 
