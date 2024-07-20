@@ -1,0 +1,7 @@
+{
+    "status" : "Success | Fail",
+    "message" : "Custom message",
+    "datas" : {
+        "property" : "value"
+    } 
+}

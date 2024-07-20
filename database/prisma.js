@@ -170,7 +170,8 @@ const createProperty = async (property) => {
  * Returns  all properties 
  * @param id  - if provided returns only one property otherwise it will return all the properties
  */
-const retrieveProperties = async (id) => {
+const retrieveProperties = async (id, query) => {
+    const {tag} = query
     try {
         if (id) {
             const property = await prisma.property.findUnique({
@@ -191,17 +192,34 @@ const retrieveProperties = async (id) => {
             });
             return property
         }
-        const properties = await prisma.property.findMany({
-            include : {
-                address : {
-                    select : {
-                        commune : true,
-                        city : true
+        if (tag !== undefined) {
+            const properties = await prisma.property.findMany({
+                where : {
+                    tag : tag
+                },
+                include : {
+                    address : {
+                        select : {
+                            commune : true,
+                            city : true
+                        }
                     }
                 }
-            }
-        })
-        return properties
+            })
+            return properties    
+        }else {
+            const properties = await prisma.property.findMany({
+                include : {
+                    address : {
+                        select : {
+                            commune : true,
+                            city : true
+                        }
+                    }
+                }
+            })
+            return properties
+        }
     } catch (error) {
         console.log(error);
     }
