@@ -194,7 +194,6 @@ const createProperty = async (property) => {
  */
 const retrieveProperties = async (query) => {
     const {tag, page, limit} = query
-    
     try {
         if (page && limit) {
             if (tag !== undefined) {
@@ -343,7 +342,7 @@ const setWishlist = async (id, changes) => {
             },
             data : {
                 waitlist : {
-                    push : changes.userEmail
+                    push : changes.userEmail,
                 }
             }
         })

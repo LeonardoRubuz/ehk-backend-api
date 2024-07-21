@@ -1,7 +1,7 @@
 const { createProperty, retrieveProperties, changeProperty, retrieveProperty, removeProperty, retrieveManyProperties, setWishlist } = require("../database/prisma");
 
 const getProperties = async (req, res) => {
-    const properties = await retrieveProperties(null, req.query)
+    const properties = await retrieveProperties(req.query)
     res.status(200).json({
         status : "Success",
         datas : properties
