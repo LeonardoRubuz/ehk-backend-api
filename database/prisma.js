@@ -32,22 +32,44 @@ const createUser  = async (user) => {
  * @param {*} role If no role is provided, returns all users
  * @returns 
  */
-const retrieveUsers = async (role) => {
+const retrieveUsers = async (role, query) => {
+    const { page, limit } = query
     try {
-        if (role && role==="Public") {
-            const users = await prisma.user.findMany({
-                select : {role : role}
-            });
-            return users;
-        } 
-        if (role && role==="Admin") {
-            const users = await prisma.user.findMany({
-                select : {role : role}
-            });
-            return users;
+        if (page && limit) {
+            if (role && role==="Public") {
+                const users = await prisma.user.findMany({
+                    select : {role : role},
+                    skip : ((parseInt(page) - 1) * parseInt(limit)),
+                    take : parseInt(limit)
+                });
+                return users;
+            } 
+            if (role && role==="Admin") {
+                const users = await prisma.user.findMany({
+                    select : {role : role},
+                    skip : ((parseInt(page) - 1) * parseInt(limit)),
+                    take : parseInt(limit)
+                });
+                return users;
+            }
+            const users = await prisma.user.findMany()
+            return users
+        } else {
+            if (role && role==="Public") {
+                const users = await prisma.user.findMany({
+                    select : {role : role}
+                });
+                return users;
+            } 
+            if (role && role==="Admin") {
+                const users = await prisma.user.findMany({
+                    select : {role : role}
+                });
+                return users;
+            }
+            const users = await prisma.user.findMany()
+            return users
         }
-        const users = await prisma.user.findMany()
-        return users
     } catch (error) {
         console.log(error);
     }
@@ -170,41 +192,96 @@ const createProperty = async (property) => {
  * Returns  all properties 
  * @param id  - if provided returns only one property otherwise it will return all the properties
  */
-const retrieveProperties = async (id) => {
+const retrieveProperties = async (query) => {
+    const {tag, page, limit} = query
     try {
-        if (id) {
-            const property = await prisma.property.findUnique({
-                where : {
-                    id : id
-                },
-                include : {
-                    address : {
-                        select : {
-                            commune : true,
-                            city : true,
-                            street : true,
-                            number : true,
-                            neighborhood : true
+        if (page && limit) {
+            if (tag !== undefined) {
+                const properties = await prisma.property.findMany({
+                    where : {
+                        tag : tag
+                    },
+                    include : {
+                        address : {
+                            select : {
+                                commune : true,
+                                city : true
+                            }
+                        }
+                    },
+                    skip : ((parseInt(page) - 1) * parseInt(limit)),
+                    take : parseInt(limit)
+                })
+                return properties    
+            }else {
+                const properties = await prisma.property.findMany({
+                    include : {
+                        address : {
+                            select : {
+                                commune : true,
+                                city : true
+                            }
+                        }
+                    },
+                    skip : ((parseInt(page) - 1) * parseInt(limit)),
+                    take : parseInt(limit)
+                })
+                return properties
+            }    
+        } else {
+            if (tag !== undefined) {
+                const properties = await prisma.property.findMany({
+                    where : {
+                        tag : tag
+                    },
+                    include : {
+                        address : {
+                            select : {
+                                commune : true,
+                                city : true
+                            }
                         }
                     }
-                }
-            });
-            return property
-        }
-        const properties = await prisma.property.findMany({
-            include : {
-                address : {
-                    select : {
-                        commune : true,
-                        city : true
+                })
+                return properties    
+            }else {
+                const properties = await prisma.property.findMany({
+                    include : {
+                        address : {
+                            select : {
+                                commune : true,
+                                city : true
+                            }
+                        }
                     }
-                }
+                })
+                return properties
             }
-        })
-        return properties
+        }
     } catch (error) {
         console.log(error);
     }
+}
+
+
+const retrieveProperty = async (id) => {
+    const property = await prisma.property.findUnique({
+        where : {
+            id : id
+        },
+        include : {
+            address : {
+                select : {
+                    commune : true,
+                    city : true,
+                    street : true,
+                    number : true,
+                    neighborhood : true
+                }
+            }
+        }
+    });
+    return property
 }
 
 /**
@@ -265,7 +342,7 @@ const setWishlist = async (id, changes) => {
             },
             data : {
                 waitlist : {
-                    push : changes.userEmail
+                    push : changes.userEmail,
                 }
             }
         })
@@ -312,10 +389,19 @@ const removeProperty = async (id) => {
 /**
  * Get all stored addresses
  */
-const retrieveAddresses = async () => {
+const retrieveAddresses = async (query) => {
+    const { page, limit } = query
     try {
-        const addresses =  await prisma.address.findMany()
-        return addresses
+        if (page && limit) {
+            const addresses =  await prisma.address.findMany({
+                skip : ((parseInt(page) - 1) * parseInt(limit)),
+                take : parseInt(limit)
+            })
+            return addresses 
+        } else {
+            const addresses =  await prisma.address.findMany()
+            return addresses
+        }
     } catch (error) {
         console.log(error);
         return null
@@ -385,7 +471,7 @@ const changeAddress = async (addressId, newValues) => {
 } */
 
 module.exports = {
-    createUser, createProperty, retrieveUser,
+    createUser, createProperty, retrieveUser, retrieveProperty,
     retrieveUsers, retrieveProperties, retrieveAddresses,
     changeProperty, removeProperty, changeUser, removeUser,
     retrieveManyProperties, retrieveManyAddresses,
