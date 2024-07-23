@@ -32,7 +32,8 @@ passport.deserializeUser(async (email, done) => {
 
 // Middlewares
 server.use(cors()) 
-server.use(express.json()); // Parse incoming requests data as JSON
+server.use(express.json({limit : '50mb'})); // Parse incoming requests data as JSON
+server.use(express.urlencoded({limit : '50mb'}))
 server.use(passport.initialize()) //  Pass the authentication middleware to our application
 server.use(helmet(
     {
