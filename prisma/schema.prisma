@@ -33,14 +33,18 @@ model Property{
   id String @id @default(uuid())
   name String
   size Float 
-  salePrice Int?
-  rentPrice Int?
+  price Float
+  currency Currency
+  type PropertyType 
+  tag Tag
+  uploader UploaderType
+  uploaded_at DateTime @default(now())
   owner User @relation(references: [email], fields: [userEmail])
   userEmail String
   address Address @relation(fields: [addressId], references: [id])
   addressId Int @unique
-  type PropertyType 
-  tag Tag
+  rooms Int?
+  bathrooms Int?
   waitlist String[]
   images String[]  
 }
@@ -83,4 +87,15 @@ enum  Tag{
 enum City{
   Kinshasa
   Lubumbashi
+}
+
+enum Currency{
+  CDF
+  EUR
+  USD
+}
+
+enum UploaderType{
+  Agent
+  Owner
 }
