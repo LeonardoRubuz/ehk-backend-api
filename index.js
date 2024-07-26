@@ -54,6 +54,6 @@ server.use("/users", userRouter)
 
 
 
-server.listen(port, () => {
-    console.log(`Server listening on ${port}`);
+server.listen(port, host,  () => {
+    console.log(`Server listening on http://${host}:${port}`);
 })

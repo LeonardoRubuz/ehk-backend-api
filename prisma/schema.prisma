@@ -32,7 +32,7 @@ model User{
 model Property{
   id String @id @default(uuid())
   name String
-  size Float 
+  size Float? 
   price Float
   currency Currency
   type PropertyType 
