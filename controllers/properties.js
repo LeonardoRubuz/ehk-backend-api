@@ -65,7 +65,8 @@ const updateProperty = async (req, res) => {
 }
 
 const makeWishlist = async (req, res) => {
-    if ( !await setWishlist(req.params.id, req.body)) {
+    console.log(req.query);
+    if ( !await setWishlist(req.params.id, req.body, req.query.action)) {
         res.status(500).json({
             status : 'Fail',
             message : 'Cannot set wishlist'

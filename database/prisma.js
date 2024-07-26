@@ -334,34 +334,63 @@ const changeProperty = async (id, property) => {
  * @param {*} changes 
  * @returns 
  */
-const setWishlist = async (id, changes) => {
+const setWishlist = async (id, changes, action) => {
     try {
-        await prisma.property.update({
-            where : {
-                id : id
-            },
-            data : {
-                waitlist : {
-                    push : changes.userEmail,
-                }
-            }
-        })
-        await prisma.user.update({
-            where : {
-                email : changes.userEmail
-            },
-            data : {
-                wishlist : {
-                    push : id
-                }
-            }
-        })
-        return true
+        if (action === 'add') {
+            await prisma.property.update({
+                where: { id: id },
+                data: {
+                    waitlist: {
+                        push: changes.userEmail,
+                    },
+                },
+            });
+            await prisma.user.update({
+                where: { email: changes.userEmail },
+                data: {
+                    wishlist: {
+                        push: id,
+                    },
+                },
+            });
+        } else if (action === 'remove') {
+            // Fetch the current property
+            const property = await prisma.property.findUnique({
+                where: { id: id },
+                select: { waitlist: true },
+            });
+
+            // Remove the user from the waitlist
+            const updatedWaitlist = property.waitlist.filter(email => email !== changes.userEmail);
+
+            // Update the property with the new waitlist
+            await prisma.property.update({
+                where: { id: id },
+                data: { waitlist: updatedWaitlist },
+            });
+
+            // Fetch the current user
+            const user = await prisma.user.findUnique({
+                where: { email: changes.userEmail },
+                select: { wishlist: true },
+            });
+
+            // Remove the property from the wishlist
+            const updatedWishlist = user.wishlist.filter(propertyId => propertyId !== id);
+
+            // Update the user with the new wishlist
+            await prisma.user.update({
+                where: { email: changes.userEmail },
+                data: { wishlist: updatedWishlist },
+            });
+        }
+        return true;
     } catch (error) {
         console.log(error);
-        return false
+        return false;
     }
-}
+};
+
 
 /**
  * Delete a property
