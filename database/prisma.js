@@ -294,6 +294,17 @@ const retrieveManyProperties = async (ownerEmail) => {
         const properties = await prisma.property.findMany({
             where : {
                 userEmail :  ownerEmail
+            },
+            include : {
+                address : {
+                    select : {
+                        commune : true,
+                        city : true,
+                        street : true,
+                        number : true,
+                        neighborhood : true
+                    }
+                }
             }
         })
         return properties
