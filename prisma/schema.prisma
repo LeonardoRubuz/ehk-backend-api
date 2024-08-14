@@ -45,6 +45,7 @@ model Property{
   addressId Int @unique
   rooms Int?
   bathrooms Int?
+  kitchens Int?
   waitlist String[]
   images String[]  
 }

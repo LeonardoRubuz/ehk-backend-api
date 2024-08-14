@@ -263,7 +263,11 @@ const retrieveProperties = async (query) => {
     }
 }
 
-
+/**
+ * Returns one property
+ * @param {*} id 
+ * @returns 
+ */
 const retrieveProperty = async (id) => {
     const property = await prisma.property.findUnique({
         where : {
@@ -282,6 +286,25 @@ const retrieveProperty = async (id) => {
         }
     });
     return property
+}
+
+/**
+ * Sends back the property user email
+ * @param {*} email 
+ * @returns 
+ */
+const retrievePropertyUserEmail = async (email) => {
+    try {
+        const property = await prisma.property.findFirst({
+            where : {
+                userEmail : email
+            }
+        });
+        return property.userEmail   
+    } catch (error) {
+        console.log(error);
+        return null
+    }
 }
 
 /**
@@ -516,5 +539,5 @@ module.exports = {
     changeProperty, removeProperty, changeUser, removeUser,
     retrieveManyProperties, retrieveManyAddresses,
     changeAddress, retrieveUserByEmail,
-    setWishlist
+    setWishlist, retrievePropertyUserEmail
 };

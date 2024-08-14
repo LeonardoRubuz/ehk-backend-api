@@ -1,14 +1,15 @@
 const express = require('express');
 const { getProperties, addProperty, getProperty, updateProperty, deleteProperty, selectPropertiesByEmail, makeWishlist } = require('../controllers/properties');
 const router = express.Router()
-
+const checkUserAuthenticated = require('../middlewares/checkUserAuthenticated')
+const checkUserPrivilege = require('../middlewares/checkUserPrivilege')
 
 router.route("/")
 .get(getProperties) // Reserved to Admin profiles 
 .post(addProperty)
 
 router.route("/:id")
-.get(getProperty)
+.get(checkUserAuthenticated, checkUserPrivilege, getProperty)
 .put(updateProperty)
 .delete(deleteProperty)
 
